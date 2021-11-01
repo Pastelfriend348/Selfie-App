@@ -1,0 +1,41 @@
+var SpeechRecognition = window.webkitSpeechRecognition;
+ var recognition = new SpeechRecognition();
+  function start() 
+  { 
+  document.getElementById("textbox").innerHTML = ""; 
+  recognition.start();
+ }
+
+recognition.onresult = function(event) {
+    
+    console.log(event);
+
+    var Content = event.results[0][0].transript;
+ 
+    document.getElementById("textbox").innerHTML = Content;
+    console.log(Content);
+   
+    if(Content == "take my selfie") 
+    {
+        console.log("taking selfie");
+        speak();
+    }
+}
+
+function speak() {
+
+    var synth = window.speechSynthesis;
+
+    speak_data = document.getElementById("textbox").value;
+    var utterThis = newSpeechSynthesisUtterance(speak_data);
+    synth.speak(utterThis);
+
+    Webcam.attach(camera);
+}
+
+Webcam.set({
+
+    width: 360, height: 250, img_format: "png", png_quality: 90
+});
+
+camera = document.getElementById("camera");         
